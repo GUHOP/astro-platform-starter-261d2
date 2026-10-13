@@ -19,6 +19,9 @@ export const POST: APIRoute = async ({ request }) => {
 };
 
 export const GET: APIRoute = async ({ request }) => {
+    if (uploadDisabled) {
+        return new Response(JSON.stringify({ keys: [] }));
+    }
     try {
         const blobStore = getStore({ name: 'shapes', consistency: 'strong' });
         const data = await blobStore.list();
